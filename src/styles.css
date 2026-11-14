@@ -37,6 +37,9 @@
 .project-info{padding:clamp(24px,3.2vw,46px)}
 .project-card.mimosa .project-info{background:#f8dfd1}
 .project-card.vigor .project-info{background:#dce7dd}
+.project-card.vigor{grid-template-columns:minmax(260px,.7fr) minmax(0,1.3fr)}
+@media(max-width:1100px){.project-card.vigor{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}}
+@media(max-width:760px){.project-card.vigor{grid-template-columns:1fr}}
 .project-category{display:flex;align-items:center;gap:11px}
 .project-category:before{content:"";display:block;width:23px;height:5px;background:var(--orange);flex:none}
 .project-card.vigor .project-category:before{background:var(--green)}
