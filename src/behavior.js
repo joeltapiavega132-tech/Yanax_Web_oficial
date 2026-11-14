@@ -90,7 +90,7 @@ export function initPage() {
     const width = 104, height = 72;
     canvas.width = width; canvas.height = height;
     const pixels = ctx.createImageData(width,height);
-    let frame = 0, animationId = 0;
+    let frame = 0, animationId = 0, visible = true;
     const render = () => {
       const t = frame++ * .025;
       for (let y=0;y<height;y++) for (let x=0;x<width;x++) {
@@ -103,12 +103,20 @@ export function initPage() {
         pixels.data[i+3]=Math.round(v*73);
       }
       ctx.putImageData(pixels,0,0);
-      if (!document.hidden) animationId=requestAnimationFrame(render);
+      if (!document.hidden && visible) animationId=requestAnimationFrame(render);
     };
-    render();
-    document.addEventListener('visibilitychange',()=>{
+    const syncAnimation = () => {
       cancelAnimationFrame(animationId);
-      if (!document.hidden) render();
-    });
+      if (!document.hidden && visible) render();
+    };
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        syncAnimation();
+      });
+      observer.observe(document.querySelector('.hero'));
+    }
+    render();
+    document.addEventListener('visibilitychange', syncAnimation);
   }
 }
