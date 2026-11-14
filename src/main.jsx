@@ -5,10 +5,10 @@ import page from './site.html?raw';
 import { initPage } from './behavior.js';
 import { RevealText } from './components/RevealText.jsx';
 import { BorderBeam } from './components/BorderBeam.jsx';
-import '@fontsource/archivo/400.css';
-import '@fontsource/archivo/500.css';
-import '@fontsource/archivo/600.css';
-import '@fontsource/archivo/700.css';
+import '@fontsource/archivo/latin-400.css';
+import '@fontsource/archivo/latin-500.css';
+import '@fontsource/archivo/latin-600.css';
+import '@fontsource/archivo/latin-700.css';
 import './styles.css';
 
 function App() {
