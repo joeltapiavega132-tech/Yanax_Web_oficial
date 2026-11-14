@@ -87,12 +87,42 @@ export function initPage() {
   }
 
   gsap.registerPlugin(ScrollTrigger);
-  const timeline = gsap.timeline({ defaults: { ease: 'power2.out' }, onComplete: () => intro.remove() });
-  timeline.from('.intro-mark img', { y: 35, autoAlpha: 0, duration: .6 })
-    .from('.intro-mark strong', { y: 18, autoAlpha: 0, duration: .45 }, '<.23')
-    .from('.intro-mark small', { y: 10, autoAlpha: 0, duration: .4 }, '<.15')
-    .to('.intro', { yPercent: -101, duration: .8, ease: 'power3.inOut' }, '+=.1')
-    .from('.hero-line', { y: 25, autoAlpha: 0, stagger: .11, duration: .6 }, '<.25')
-    .from('.hero-lede, .hero-actions', { y: 14, autoAlpha: 0, stagger: .1, duration: .45 }, '<.2')
-    .from('.hero-figure img', { x: 25, autoAlpha: 0, duration: .7 }, '<');
+  const heroFigure = document.querySelector('.hero-figure');
+  const mascot = heroFigure.querySelector('.hero-mascot');
+  const timeline = gsap.timeline({
+    defaults: { ease: 'power3.out' },
+    onComplete: () => {
+      intro.remove();
+      gsap.to('.hero-mascot img', { y: -10, duration: 2.7, ease: 'sine.inOut', repeat: -1, yoyo: true });
+    },
+  });
+  timeline.from('.intro-mark img', { y: 70, scale: .72, rotation: -9, autoAlpha: 0, duration: .85, ease: 'back.out(1.7)' })
+    .from('.intro-mark strong', { y: 24, autoAlpha: 0, duration: .5 }, '<.35')
+    .from('.intro-mark small', { y: 12, autoAlpha: 0, duration: .4 }, '<.2')
+    .to('.intro', { yPercent: -101, duration: .8, ease: 'power3.inOut' }, '+=.08')
+    .from('.hero-figure', { clipPath: 'inset(0 0 100% 0)', duration: .9, ease: 'power3.inOut' }, '<.35')
+    .from('.hero-shape', { scale: .65, rotation: -10, autoAlpha: 0, stagger: .12, duration: .8, ease: 'back.out(1.4)' }, '<.45')
+    .from('.hero-mascot', { y: 140, rotation: -9, scale: .72, autoAlpha: 0, duration: 1.15, ease: 'back.out(1.6)' }, '<.65')
+    .from('.hero-line', { y: 34, autoAlpha: 0, stagger: .13, duration: .7 }, '<.9')
+    .from('.hero-lede, .hero-actions', { y: 20, autoAlpha: 0, stagger: .12, duration: .55 }, '<.35')
+    .from('.hero-bottom', { y: 15, autoAlpha: 0, duration: .5 }, '<.3');
+
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const moveX = gsap.quickTo(mascot, 'x', { duration: .65, ease: 'power3.out' });
+    const moveY = gsap.quickTo(mascot, 'y', { duration: .65, ease: 'power3.out' });
+    const turn = gsap.quickTo(mascot, 'rotation', { duration: .7, ease: 'power3.out' });
+    heroFigure.addEventListener('pointermove', (event) => {
+      if (timeline.isActive()) return;
+      const bounds = heroFigure.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - .5;
+      const y = (event.clientY - bounds.top) / bounds.height - .5;
+      moveX(x * 24);
+      moveY(y * 16);
+      turn(x * 4);
+    });
+    heroFigure.addEventListener('pointerleave', () => { moveX(0); moveY(0); turn(0); });
+  }
+
+  gsap.to('.hero-shape-coral', { y: -38, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+  gsap.to('.hero-shape-green', { y: 28, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
 }
