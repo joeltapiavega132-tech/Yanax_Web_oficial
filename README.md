@@ -1,23 +1,21 @@
 # Yanax Studio — web oficial
 
-Landing y portafolio de Yanax Studio, desarrollado con React y Vite.
+Landing y portafolio de Yanax Studio. React + Vite, lista para Netlify.
 
-## Desarrollo local
+## Desarrollo
 
 ```bash
 npm ci
 npm run dev
 ```
 
-## Build y despliegue
+## Producción
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Netlify usa `netlify.toml`: ejecuta `npm run build` y publica `dist`. Conecta este repositorio desde el panel de Netlify para desplegarlo. El formulario de comentarios usa Netlify Forms en producción; en desarrollo local abre un correo dirigido a Yanax.
+Netlify usa `netlify.toml` para ejecutar `npm run build` y publicar `dist`. El formulario de comentarios se procesa con Netlify Forms después del despliegue. En desarrollo local prepara un correo al equipo de Yanax.
 
-Las imágenes de proyectos y los logos provienen de los archivos entregados por Yanax Studio. GSAP y ScrollTrigger se importan desde la dependencia npm `gsap`. El proyecto integra versiones adaptadas y editables de Aurora Bars (Unlumen UI), Border Beam (Magic UI) y Reveal Text (SmoothUI) en `src/components`. El fondo de píxeles y los botones siguen la misma dirección visual con implementaciones locales.
-
-
+La web usa las capturas reales de Mimosa y Vigor Spot y la identidad visual entregada por Yanax. La apertura utiliza GSAP. El texto de entrada adapta Reveal Text de SmoothUI y el borde de los proyectos adapta Border Beam de Magic UI. El fondo con barras de Unlumen UI se retiró del diseño a petición del cliente; el componente queda disponible en el código para usos futuros. La tipografía Archivo se sirve desde el proyecto, sin depender de Google Fonts.
