@@ -9,4 +9,6 @@ function App() {
   return <div dangerouslySetInnerHTML={{ __html: page }} />;
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+const root = import.meta.hot?.data.root ?? createRoot(document.getElementById('root'));
+root.render(<App />);
+if (import.meta.hot) import.meta.hot.data.root = root;
